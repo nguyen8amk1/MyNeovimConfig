@@ -53,6 +53,10 @@ require("lazy").setup({
 
     -- Telescope 
     { 'nvim-telescope/telescope.nvim' },
-    { 'nvim-telescope/telescope-media-files.nvim'}
+    { 'nvim-telescope/telescope-media-files.nvim'}, 
+
+    -- Comment 
+    { 'numToStr/Comment.nvim' }, 
+   { 'JoosepAlviste/nvim-ts-context-commentstring'}, 
 })
 

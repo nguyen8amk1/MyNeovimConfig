@@ -14,6 +14,10 @@ configs.setup {
     autopairs = {
         enable = true,
     },
+    content_commentstring = {
+        enable = true, 
+        enable_autocmd = false, 
+    }, 
 
   rainbow = {
     enable = true,
