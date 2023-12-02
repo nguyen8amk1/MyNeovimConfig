@@ -37,10 +37,16 @@ require("lazy").setup({
     { "L3MON4D3/LuaSnip"},  --snippet engine
     { "rafamadriz/friendly-snippets"},  -- a bunch of snippets to 
 
-     -- LSP
+    -- Auto pair 
+    { 'windwp/nvim-autopairs' },
+
+    -- LSP
     { "neovim/nvim-lspconfig"}, -- enable LSP
     { "williamboman/mason.nvim"}, -- simple to { language server installer
     { "williamboman/mason-lspconfig.nvim"}, -- simple to { language server installer
     { 'jose-elias-alvarez/null-ls.nvim'}, -- LSP diagnostics and code actions
+    { 'nvim-treesitter/nvim-treesitter', build= ':TSUpdate'}, 
+    { 'p00f/nvim-ts-rainbow' },
+
 })
 
