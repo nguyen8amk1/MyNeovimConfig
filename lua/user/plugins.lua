@@ -57,6 +57,11 @@ require("lazy").setup({
 
     -- Comment 
     { 'numToStr/Comment.nvim' }, 
-   { 'JoosepAlviste/nvim-ts-context-commentstring'}, 
+    { 'JoosepAlviste/nvim-ts-context-commentstring'}, 
+    
+    -- Nvim tree  
+    { 'kyazdani42/nvim-web-devicons'}, 
+    { 'kyazdani42/nvim-tree.lua'}, 
 })
+
 
