@@ -48,5 +48,11 @@ require("lazy").setup({
     { 'nvim-treesitter/nvim-treesitter', build= ':TSUpdate'}, 
     { 'p00f/nvim-ts-rainbow' },
 
+
+
+
+    -- Telescope 
+    { 'nvim-telescope/telescope.nvim' },
+    { 'nvim-telescope/telescope-media-files.nvim'}
 })
 
