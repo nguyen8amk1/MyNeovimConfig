@@ -1,5 +1,4 @@
 --[[
-
 =====================================================================
 ==================== READ THIS BEFORE CONTINUING ====================
 =====================================================================
@@ -106,6 +105,9 @@ require('lazy').setup({
       -- Adds LSP completion capabilities
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
+
+      "hrsh7th/cmp-buffer", -- buffer completions
+      "hrsh7th/cmp-cmdline",  -- cmdline completions
 
       -- Adds a number of user-friendly snippets
       'rafamadriz/friendly-snippets',
@@ -994,6 +996,7 @@ local check_backspace = function()
   return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
 end
 
+
 cmp.setup {
   snippet = {
     expand = function(args)
@@ -1019,7 +1022,7 @@ cmp.setup {
     -- Accept currently selected item. If none selected, `select` first item.
     -- Set `select` to `false` to only confirm explicitly selected items.
     ["<CR>"] = cmp.mapping.confirm { select = true },
-    ["<Tab>"] = cmp.mapping.confirm { select = true },
+    -- ["<Tab>"] = cmp.mapping.confirm { select = true },
 
     ['<C-n>'] = cmp.mapping.select_next_item(),
     ['<C-p>'] = cmp.mapping.select_prev_item(),
@@ -1032,22 +1035,23 @@ cmp.setup {
     -- },
    
 
-    -- ["<Tab>"] = cmp.mapping(function(fallback)
-    --   if cmp.visible() then
-    --     cmp.select_next_item()
-    --   elseif luasnip.expandable() then
-    --     luasnip.expand()
-    --   elseif luasnip.expand_or_jumpable() then
-    --     luasnip.expand_or_jump()
-    --   elseif check_backspace() then
-    --     fallback()
-    --   else
-    --     fallback()
-    --   end
-    -- end, {
-    --   "i",
-    --   "s",
-    -- }),
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        --cmp.select_next_item()
+        cmp.confirm();
+      elseif luasnip.expandable() then
+        luasnip.expand()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      elseif check_backspace() then
+        fallback()
+      else
+        fallback()
+      end
+    end, {
+      "i",
+      "s",
+    }),
 
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
