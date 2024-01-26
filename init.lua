@@ -114,6 +114,9 @@ require('lazy').setup({
     },
   },
 
+  { 'p00f/nvim-ts-rainbow' },
+  { 'windwp/nvim-autopairs' },
+
   -- Useful plugin to show you pending keybinds.
   { 'folke/which-key.nvim', opts = {} },
   {
@@ -626,6 +629,23 @@ vim.defer_fn(function()
         },
       },
     },
+
+    autopairs = {
+        enable = true,
+    },
+    content_commentstring = {
+        enable = true, 
+        enable_autocmd = false, 
+    }, 
+
+  rainbow = {
+    enable = true,
+    -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
+    extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+    max_file_lines = nil, -- Do not enable for files with more than n lines, int
+    -- colors = {}, -- table of hex strings
+    -- termcolors = {} -- table of colour name strings
+  } 
   }
 end, 0)
 
@@ -757,6 +777,17 @@ neo_tree.setup (
         --           return a.type > b.type
         --       end
         --   end , -- this sorts files and directories descendantly
+    event_handlers = {
+      {
+        event = "file_opened",
+        handler = function(file_path)
+          -- auto close
+          -- vimc.cmd("Neotree close")
+          -- OR
+          require("neo-tree.command").execute({ action = "close" })
+        end
+      },
+    }, 
         default_component_configs = {
           container = {
             enable_character_fade = true
@@ -1151,5 +1182,38 @@ cmp.setup {
   },
 }
 
+-- autopair config 
+local auto_pair_status_ok, npairs = pcall(require, "nvim-autopairs")
+if not auto_pair_status_ok then
+  return
+end
+
+npairs.setup {
+    check_ts = true,
+    ts_config = {
+        lua = { "string", "source" },
+        javascript = { "string", "template_string" },
+        java = false,
+    },
+    disable_filetype = { "TelescopePrompt", "spectre_panel" },
+    fast_wrap = {
+        map = "<M-e>",
+        chars = { "{", "[", "(", '"', "'" },
+        pattern = string.gsub([[ [%'%"%)%>%]%)%}%,] ]], "%s+", ""),
+        offset = 0, -- Offset from pattern match
+        end_key = "$",
+        keys = "qwertyuiopzxcvbnmasdfghjkl",
+        check_comma = true,
+        highlight = "PmenuSel",
+        highlight_grey = "LineNr",
+    },
+}
+
+local cmp_autopairs = require "nvim-autopairs.completion.cmp"
+local cmp_status_ok, cmp = pcall(require, "cmp")
+if not cmp_status_ok then
+  return
+end
+cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done { map_char = { tex = "" } })
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
