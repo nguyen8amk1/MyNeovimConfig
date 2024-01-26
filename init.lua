@@ -343,7 +343,7 @@ vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
 
 
 -- Set highlight on search
-vim.o.hlsearch = false
+--vim.o.hlsearch = false
 
 -- Make line numbers default
 vim.wo.number = true
