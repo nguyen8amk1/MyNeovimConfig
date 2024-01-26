@@ -194,6 +194,8 @@ require('lazy').setup({
     },
   },
 
+  { "alexghergh/nvim-tmux-navigation"},
+
   {
     -- Theme inspired by Atom
     'navarasu/onedark.nvim',
@@ -289,6 +291,54 @@ require('lazy').setup({
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
+--
+--
+--
+--
+-- My options 
+--
+vim.opt.backup = false                          -- creates a backup file
+vim.opt.clipboard = "unnamedplus"               -- allows neovim to access the system clipboard
+vim.opt.cmdheight = 2                           -- more space in the neovim command line for displaying messages
+vim.opt.completeopt = { "menuone", "noselect" } -- mostly just for cmp
+vim.opt.conceallevel = 0                        -- so that `` is visible in markdown files
+vim.opt.fileencoding = "utf-8"                  -- the encoding written to a file
+vim.opt.hlsearch = true                         -- highlight all matches on previous search pattern
+vim.opt.ignorecase = true                       -- ignore case in search patterns
+vim.opt.mouse = "a"                             -- allow the mouse to be used in neovim
+vim.opt.pumheight = 10                          -- pop up menu height
+vim.opt.showmode = false                        -- we don't need to see things like -- INSERT -- anymore
+vim.opt.showtabline = 2                         -- always show tabs
+vim.opt.smartcase = true                        -- smart case
+vim.opt.smartindent = true                      -- make indenting smarter again
+vim.opt.splitbelow = true                       -- force all horizontal splits to go below current window
+vim.opt.splitright = true                       -- force all vertical splits to go to the right of current window
+vim.opt.swapfile = false                        -- creates a swapfile
+vim.opt.termguicolors = true                    -- set term gui colors (most terminals support this)
+vim.opt.timeoutlen = 1000                       -- time to wait for a mapped sequence to complete (in milliseconds)
+vim.opt.undofile = true                         -- enable persistent undo
+vim.opt.updatetime = 300                        -- faster completion (4000ms default)
+vim.opt.writebackup = false                     -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
+vim.opt.expandtab = true                        -- convert tabs to spaces
+vim.opt.shiftwidth = 4                          -- the number of spaces inserted for each indentation
+vim.opt.tabstop = 4                             -- insert 2 spaces for a tab
+vim.opt.cursorline = true                       -- highlight the current line
+vim.opt.number = true                           -- set numbered lines
+vim.opt.relativenumber = false                  -- set relative numbered lines
+vim.opt.numberwidth = 4                         -- set number column width to 2 {default 4}
+vim.opt.signcolumn = "yes"                      -- always show the sign column, otherwise it would shift the text each time
+vim.opt.wrap = false                            -- display lines as one long line
+vim.opt.scrolloff = 8                           -- is one of my fav
+vim.opt.sidescrolloff = 8
+vim.opt.guifont = "monospace:h12"               -- the font used in graphical neovim applications
+
+vim.opt.shortmess:append "c"
+
+vim.cmd "set whichwrap+=<,>,[,],h,l"
+vim.cmd [[set iskeyword+=-]]
+vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
+
+
 
 -- Set highlight on search
 vim.o.hlsearch = false
@@ -337,6 +387,13 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
+local opts = { noremap = true, silent = true }
+local keymap = vim.api.nvim_set_keymap
+keymap("n", "<C-h>", "<C-w>h", opts)
+keymap("n", "<C-j>", "<C-w>j", opts)
+keymap("n", "<C-k>", "<C-w>k", opts)
+keymap("n", "<C-l>", "<C-w>l", opts)
+
 -- Diagnostic keymaps
 -- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 -- vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
@@ -345,6 +402,20 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 --
 --
 --
+--
+--
+local nvim_tmux_nav = require('nvim-tmux-navigation')
+
+nvim_tmux_nav.setup {
+    disable_when_zoomed = true -- defaults to false
+}
+
+vim.keymap.set('n', "<C-h>", nvim_tmux_nav.NvimTmuxNavigateLeft)
+vim.keymap.set('n', "<C-j>", nvim_tmux_nav.NvimTmuxNavigateDown)
+vim.keymap.set('n', "<C-k>", nvim_tmux_nav.NvimTmuxNavigateUp)
+vim.keymap.set('n', "<C-l>", nvim_tmux_nav.NvimTmuxNavigateRight)
+--vim.keymap.set('n', "<C-\\>", nvim_tmux_nav.NvimTmuxNavigateLastActive)
+--vim.keymap.set('n', "<C-Space>", nvim_tmux_nav.NvimTmuxNavigateNext)
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
