@@ -860,6 +860,15 @@ neo_tree.setup (
           require("neo-tree.command").execute({ action = "close" })
         end
       },
+      {
+        event = "file_splitted",
+        handler = function(file_path)
+          -- auto close
+          -- vimc.cmd("Neotree close")
+          -- OR
+          require("neo-tree.command").execute({ action = "close" })
+        end
+      },
     }, 
         default_component_configs = {
           container = {
