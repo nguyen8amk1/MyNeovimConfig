@@ -524,6 +524,9 @@ cmp.setup({
   },
 })
 
+-- oil nvim
+vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+
 local opts = { noremap = true, silent = true }
 local term_opts = { silent = true }
 -- Shorten function name
