@@ -38,6 +38,7 @@ vim.opt.scrolloff = 8 -- is one of my fav
 vim.opt.sidescrolloff = 8
 vim.opt.guifont = "monospace:h12" -- the font used in graphical neovim applications
 
+vim.cmd("set nowrap")
 vim.cmd("set whichwrap+=<,>,[,],h,l")
 --vim.cmd [[set iskeyword+=-]]
 vim.cmd([[set formatoptions-=cro]]) -- TODO: this doesn't seem to work
