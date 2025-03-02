@@ -285,7 +285,8 @@ keymap("n", "gy", '"+y', opts)
 keymap("n", "gp", '"+p', opts)
 keymap("n", "gy", '"+y', term_opts)
 keymap("n", "gp", '"+p', term_opts)
-keymap("i", "kk", "<Esc>", opts)
+
+keymap("i", "jk", "<Esc>", opts)
 
 vim.keymap.del("v", "<")
 vim.keymap.del("v", ">")
